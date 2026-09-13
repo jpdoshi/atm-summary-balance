@@ -61,7 +61,7 @@ export const NotesContainer: React.FC<NotesContainerProps> = ({
             </div>
             <div>
               <h2 className="text-lg sm:text-xl font-black uppercase text-black tracking-tight">
-                Currency Notes Tally
+                ATM Notes Tally
               </h2>
               <p className="text-xs font-mono font-semibold text-neutral-600">
                 Physical Cash in ATM Cassettes
@@ -72,9 +72,8 @@ export const NotesContainer: React.FC<NotesContainerProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowExtra(!showExtra)}
-              className={`flex items-center gap-1 text-xs font-bold px-2.5 py-1 border-2 border-black shadow-neo-sm active:translate-x-0.5 active:translate-y-0.5 transition-all ${
-                showExtra ? 'bg-[#FFE500] text-black' : 'bg-neutral-100 text-neutral-800'
-              }`}
+              className={`flex items-center gap-1 text-xs font-bold px-2.5 py-1 border-2 border-black shadow-neo-sm active:translate-x-0.5 active:translate-y-0.5 transition-all ${showExtra ? 'bg-[#FFE500] text-black' : 'bg-neutral-100 text-neutral-800'
+                }`}
               title="Toggle ₹2 & ₹1 coins/notes"
             >
               <SlidersHorizontal className="w-3.5 h-3.5" />
@@ -111,9 +110,8 @@ export const NotesContainer: React.FC<NotesContainerProps> = ({
             return (
               <div
                 key={denom}
-                className={`grid grid-cols-12 gap-2 items-center p-2 border-2 border-black transition-colors ${
-                  countNum > 0 ? 'bg-neutral-50 shadow-neo-sm' : 'bg-white hover:bg-neutral-50'
-                }`}
+                className={`grid grid-cols-12 gap-2 items-center p-2 border-2 border-black transition-colors ${countNum > 0 ? 'bg-neutral-50 shadow-neo-sm' : 'bg-white hover:bg-neutral-50'
+                  }`}
               >
                 {/* Note Badge */}
                 <div className="col-span-4 sm:col-span-3 flex items-center gap-1.5">
@@ -146,9 +144,8 @@ export const NotesContainer: React.FC<NotesContainerProps> = ({
                     value={rawCount}
                     onChange={(e) => handleInputChange(denom, e.target.value)}
                     aria-label={`Count for ₹${denom} notes`}
-                    className={`w-14 sm:w-20 text-center font-mono font-extrabold text-sm sm:text-base border-2 border-black py-1 px-1 focus:outline-none focus:ring-2 focus:ring-black ${
-                      countNum > 0 ? 'bg-yellow-100 text-black' : 'bg-white text-neutral-800'
-                    }`}
+                    className={`w-14 sm:w-20 text-center font-mono font-extrabold text-sm sm:text-base border-2 border-black py-1 px-1 focus:outline-none focus:ring-2 focus:ring-black ${countNum > 0 ? 'bg-yellow-100 text-black' : 'bg-white text-neutral-800'
+                      }`}
                   />
 
                   <button

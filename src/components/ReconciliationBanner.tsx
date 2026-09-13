@@ -46,17 +46,15 @@ export const ReconciliationBanner: React.FC<ReconciliationBannerProps> = ({
     <div className="bg-white border-4 border-black shadow-neo-lg p-5 sm:p-6 mb-8 transition-all">
       {/* Top Status Header */}
       <div
-        className={`p-4 sm:p-5 border-3 border-black shadow-neo flex flex-col md:flex-row items-center justify-between gap-4 transition-colors ${
-          isMatched
+        className={`p-4 sm:p-5 border-3 border-black shadow-neo flex flex-col md:flex-row items-center justify-between gap-4 transition-colors ${isMatched
             ? 'bg-[#86EFAC] text-black'
             : 'bg-[#FCA5A5] text-black'
-        }`}
+          }`}
       >
         <div className="flex items-center gap-3.5 w-full md:w-auto">
           <div
-            className={`w-12 h-12 flex-shrink-0 flex items-center justify-center border-2 border-black shadow-neo-sm ${
-              isMatched ? 'bg-white text-[#166534]' : 'bg-white text-[#991B1B]'
-            }`}
+            className={`w-12 h-12 flex-shrink-0 flex items-center justify-center border-2 border-black shadow-neo-sm ${isMatched ? 'bg-white text-[#166534]' : 'bg-white text-[#991B1B]'
+              }`}
           >
             {isMatched ? (
               <CheckCircle2 className="w-7 h-7" />
@@ -68,7 +66,7 @@ export const ReconciliationBanner: React.FC<ReconciliationBannerProps> = ({
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-black uppercase px-2 py-0.5 bg-black text-white">
-                RECONCILIATION RESULT
+                GL BALANCE
               </span>
               {isSaved && (
                 <span className="text-xs font-mono font-black uppercase px-2 py-0.5 bg-[#FFE500] text-black border border-black">
@@ -85,8 +83,8 @@ export const ReconciliationBanner: React.FC<ReconciliationBannerProps> = ({
               {isMatched
                 ? 'The transactional ledger matches physical cash in the ATM cassettes exactly.'
                 : difference > 0
-                ? `Physical Cash exceeds Ledger Book by ₹ ${formatINR(difference)} (Cash Excess / Surplus)`
-                : `Physical Cash is short of Ledger Book by ₹ ${formatINR(Math.abs(difference))} (Cash Shortage / Deficit)`}
+                  ? `Physical Cash exceeds Ledger Book by ₹ ${formatINR(difference)} (Cash Excess / Surplus)`
+                  : `Physical Cash is short of Ledger Book by ₹ ${formatINR(Math.abs(difference))} (Cash Shortage / Deficit)`}
             </p>
           </div>
         </div>
@@ -97,9 +95,8 @@ export const ReconciliationBanner: React.FC<ReconciliationBannerProps> = ({
             Net Discrepancy
           </div>
           <div
-            className={`text-lg sm:text-xl font-mono font-black ${
-              isMatched ? 'text-[#166534]' : 'text-[#991B1B]'
-            }`}
+            className={`text-lg sm:text-xl font-mono font-black ${isMatched ? 'text-[#166534]' : 'text-[#991B1B]'
+              }`}
           >
             {isMatched ? '₹ 0.00' : `₹ ${formatINR(Math.abs(difference))}`}
           </div>
@@ -161,11 +158,10 @@ export const ReconciliationBanner: React.FC<ReconciliationBannerProps> = ({
           {/* Save Button */}
           <button
             onClick={onSave}
-            className={`flex items-center gap-2 px-4 py-2.5 font-black uppercase text-xs sm:text-sm border-2 border-black shadow-neo active:translate-x-0.5 active:translate-y-0.5 transition-all ${
-              isSaved
+            className={`flex items-center gap-2 px-4 py-2.5 font-black uppercase text-xs sm:text-sm border-2 border-black shadow-neo active:translate-x-0.5 active:translate-y-0.5 transition-all ${isSaved
                 ? 'bg-[#22C55E] text-white hover:bg-[#16a34a]'
                 : 'bg-[#FFE500] text-black hover:bg-[#fed900]'
-            }`}
+              }`}
           >
             <Save className="w-4 h-4" />
             <span>{isSaved ? 'Update Saved Sheet' : 'Save Balance Sheet'}</span>

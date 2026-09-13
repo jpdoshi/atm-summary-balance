@@ -283,13 +283,12 @@ export function App() {
       {toast && (
         <div className="fixed bottom-5 right-5 z-50 animate-in fade-in slide-in-from-bottom-3 duration-200">
           <div
-            className={`px-4 py-3 border-3 border-black shadow-neo font-mono font-black text-xs sm:text-sm flex items-center gap-2.5 ${
-              toast.type === 'success'
-                ? 'bg-[#86EFAC] text-black'
-                : toast.type === 'error'
+            className={`px-4 py-3 border-3 border-black shadow-neo font-mono font-black text-xs sm:text-sm flex items-center gap-2.5 ${toast.type === 'success'
+              ? 'bg-[#86EFAC] text-black'
+              : toast.type === 'error'
                 ? 'bg-[#FCA5A5] text-black'
                 : 'bg-[#FFE500] text-black'
-            }`}
+              }`}
           >
             {toast.type === 'success' ? (
               <Check className="w-4 h-4 text-black flex-shrink-0" />
@@ -314,20 +313,6 @@ export function App() {
 
       {/* Main Container */}
       <main className="no-print flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
-        {/* Reconciliation Status & Actions Banner */}
-        <ReconciliationBanner
-          ledgerTotal={ledgerTotal}
-          cashTotal={totalNotesAmount}
-          isMatched={isMatched}
-          difference={difference}
-          amountInWords={amountInWords}
-          onSave={handleSave}
-          onDownloadPDF={handleDownloadPDF}
-          onPrint={handlePrint}
-          onShare={handleShare}
-          isSaved={hasSavedDataForCurrentDate}
-        />
-
         {/* 2-Column Responsive Layout: Opening Balance Ledger vs Notes Counter */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
           {/* Container 1: Opening Balance Ledger */}
@@ -346,7 +331,21 @@ export function App() {
             onChange={handleDenominationChange}
             onClearNotes={handleClearNotes}
           />
+
         </div>
+        {/* Reconciliation Status & Actions Banner */}
+        <ReconciliationBanner
+          ledgerTotal={ledgerTotal}
+          cashTotal={totalNotesAmount}
+          isMatched={isMatched}
+          difference={difference}
+          amountInWords={amountInWords}
+          onSave={handleSave}
+          onDownloadPDF={handleDownloadPDF}
+          onPrint={handlePrint}
+          onShare={handleShare}
+          isSaved={hasSavedDataForCurrentDate}
+        />
 
         {/* Quick Help & Shortcuts Footer */}
         <div className="bg-neutral-100 border-2 border-black p-4 shadow-neo-sm flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono font-bold text-neutral-600">
