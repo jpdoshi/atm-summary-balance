@@ -92,17 +92,25 @@ export const PrintableSlip: React.FC<PrintableSlipProps> = ({ record }) => {
               </tr>
             </thead>
             <tbody>
-              {[2000, 500, 200, 100, 50, 20, 10, 5].map((denom) => {
-                const count = record.denominations[denom] || 0;
-                const total = denom * count;
-                return (
-                  <tr key={denom} className="border-b border-neutral-200">
-                    <td className="py-1 font-bold">₹ {denom}</td>
-                    <td className="py-1 text-center font-bold">{count}</td>
-                    <td className="py-1 text-right">₹ {formatINR(total)}</td>
-                  </tr>
-                );
-              })}
+              {(() => {
+                const list = [500, 200, 100];
+                [2000, 50, 20, 10, 5, 2, 1].forEach((d) => {
+                  if (record.denominations[d] && !list.includes(d)) {
+                    list.push(d);
+                  }
+                });
+                return list.map((denom) => {
+                  const count = record.denominations[denom] || 0;
+                  const total = denom * count;
+                  return (
+                    <tr key={denom} className="border-b border-neutral-200">
+                      <td className="py-1 font-bold">₹ {denom}</td>
+                      <td className="py-1 text-center font-bold">{count}</td>
+                      <td className="py-1 text-right">₹ {formatINR(total)}</td>
+                    </tr>
+                  );
+                });
+              })()}
               <tr className="bg-cyan-100 font-black text-sm border-t-2 border-b-2 border-black">
                 <td className="py-1.5 font-sans">TOTAL CASH ({record.calculations.totalNotesCount} pcs):</td>
                 <td></td>

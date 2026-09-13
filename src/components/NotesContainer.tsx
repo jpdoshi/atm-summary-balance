@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { STANDARD_DENOMINATIONS, EXTRA_DENOMINATIONS } from '../types/atm';
+import { MAIN_DENOMINATIONS, OPTIONAL_DENOMINATIONS } from '../types/atm';
 import type { DenominationCounts, DenominationValue } from '../types/atm';
 import { formatINR } from '../utils/numberToWords';
-import { Banknote, Trash2, SlidersHorizontal, Plus, Minus } from 'lucide-react';
+import { Banknote, Trash2, SlidersHorizontal, Plus, Minus, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface NotesContainerProps {
   denominations: DenominationCounts;
@@ -32,11 +32,14 @@ export const NotesContainer: React.FC<NotesContainerProps> = ({
   onChange,
   onClearNotes,
 }) => {
-  const [showExtra, setShowExtra] = useState(false);
+  const [showOptional, setShowOptional] = useState(false);
 
-  const activeDenominations: DenominationValue[] = showExtra
-    ? [...STANDARD_DENOMINATIONS, ...EXTRA_DENOMINATIONS]
-    : STANDARD_DENOMINATIONS;
+  // Check if any optional note has counts
+  const hasActiveOptionalNotes = OPTIONAL_DENOMINATIONS.some(
+    (d) => (parseInt(String(denominations[d] || '0'), 10) || 0) > 0
+  );
+
+  const isExpanded = showOptional || hasActiveOptionalNotes;
 
   const handleInputChange = (denom: number, value: string) => {
     // Only positive integers
@@ -48,6 +51,75 @@ export const NotesContainer: React.FC<NotesContainerProps> = ({
     const current = parseInt(String(denominations[denom] || '0'), 10) || 0;
     const nextVal = Math.max(0, current + delta);
     onChange(denom, nextVal === 0 ? '' : String(nextVal));
+  };
+
+  const renderRow = (denom: DenominationValue) => {
+    const rawCount = denominations[denom] || '';
+    const countNum = parseInt(String(rawCount), 10) || 0;
+    const rowTotal = denom * countNum;
+    const theme = DENOM_THEMES[denom] || { bg: 'bg-neutral-100', text: 'text-black', border: 'border-black' };
+
+    return (
+      <div
+        key={denom}
+        className={`grid grid-cols-12 gap-2 items-center p-2 border-2 border-black transition-colors ${
+          countNum > 0 ? 'bg-neutral-50 shadow-neo-sm' : 'bg-white hover:bg-neutral-50'
+        }`}
+      >
+        {/* Note Badge */}
+        <div className="col-span-4 sm:col-span-3 flex items-center gap-1.5">
+          <div
+            className={`px-2 py-1 font-mono font-black text-xs sm:text-sm border-2 border-black shadow-neo-sm ${theme.bg} ${theme.text}`}
+          >
+            ₹ {denom}
+          </div>
+          <span className="font-mono font-bold text-neutral-400 text-xs hidden sm:inline select-none">
+            ×
+          </span>
+        </div>
+
+        {/* Count Input Box + Steppers */}
+        <div className="col-span-4 sm:col-span-5 flex items-center justify-center gap-1">
+          <button
+            onClick={() => handleStep(denom, -1)}
+            disabled={countNum <= 0}
+            className="w-6 h-7 sm:w-7 sm:h-8 flex items-center justify-center bg-white hover:bg-neutral-100 disabled:opacity-30 disabled:hover:bg-white border-2 border-black font-bold text-black shadow-neo-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
+            title="Subtract 1 note"
+            aria-label={`Subtract 1 ₹${denom} note`}
+          >
+            <Minus className="w-3 h-3" />
+          </button>
+
+          <input
+            type="text"
+            inputMode="numeric"
+            placeholder="0"
+            value={rawCount}
+            onChange={(e) => handleInputChange(denom, e.target.value)}
+            aria-label={`Count for ₹${denom} notes`}
+            className={`w-14 sm:w-20 text-center font-mono font-extrabold text-sm sm:text-base border-2 border-black py-1 px-1 focus:outline-none focus:ring-2 focus:ring-black ${
+              countNum > 0 ? 'bg-yellow-100 text-black' : 'bg-white text-neutral-800'
+            }`}
+          />
+
+          <button
+            onClick={() => handleStep(denom, 1)}
+            className="w-6 h-7 sm:w-7 sm:h-8 flex items-center justify-center bg-white hover:bg-neutral-100 border-2 border-black font-bold text-black shadow-neo-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
+            title="Add 1 note"
+            aria-label={`Add 1 ₹${denom} note`}
+          >
+            <Plus className="w-3 h-3" />
+          </button>
+        </div>
+
+        {/* Amount Output */}
+        <div className="col-span-4 sm:col-span-4 text-right">
+          <span className="font-mono font-black text-sm sm:text-base text-black">
+            ₹ {formatINR(rowTotal)}
+          </span>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -64,20 +136,22 @@ export const NotesContainer: React.FC<NotesContainerProps> = ({
                 ATM Notes Tally
               </h2>
               <p className="text-xs font-mono font-semibold text-neutral-600">
-                Physical Cash in ATM Cassettes
+                Main: ₹500, ₹200, ₹100
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setShowExtra(!showExtra)}
-              className={`flex items-center gap-1 text-xs font-bold px-2.5 py-1 border-2 border-black shadow-neo-sm active:translate-x-0.5 active:translate-y-0.5 transition-all ${showExtra ? 'bg-[#FFE500] text-black' : 'bg-neutral-100 text-neutral-800'
-                }`}
-              title="Toggle ₹2 & ₹1 coins/notes"
+              onClick={() => setShowOptional(!showOptional)}
+              className={`flex items-center gap-1 text-xs font-bold px-2.5 py-1 border-2 border-black shadow-neo-sm active:translate-x-0.5 active:translate-y-0.5 transition-all ${
+                isExpanded ? 'bg-[#FFE500] text-black' : 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200'
+              }`}
+              title="Toggle optional denominations (₹2000, ₹50, ₹20, ₹10, ₹5, ₹2, ₹1)"
             >
               <SlidersHorizontal className="w-3.5 h-3.5" />
-              <span>{showExtra ? 'Standard' : 'More (+₹2, ₹1)'}</span>
+              <span>{isExpanded ? 'Hide Optional' : '+ Optional Notes'}</span>
+              {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
             </button>
 
             {totalNotesCount > 0 && (
@@ -99,75 +173,28 @@ export const NotesContainer: React.FC<NotesContainerProps> = ({
           <div className="col-span-4 sm:col-span-4 text-right">Amount (₹)</div>
         </div>
 
-        {/* Denomination Rows */}
+        {/* Main Denominations (500, 200, 100) */}
         <div className="space-y-2 mt-2">
-          {activeDenominations.map((denom) => {
-            const rawCount = denominations[denom] || '';
-            const countNum = parseInt(String(rawCount), 10) || 0;
-            const rowTotal = denom * countNum;
-            const theme = DENOM_THEMES[denom] || { bg: 'bg-neutral-100', text: 'text-black', border: 'border-black' };
-
-            return (
-              <div
-                key={denom}
-                className={`grid grid-cols-12 gap-2 items-center p-2 border-2 border-black transition-colors ${countNum > 0 ? 'bg-neutral-50 shadow-neo-sm' : 'bg-white hover:bg-neutral-50'
-                  }`}
-              >
-                {/* Note Badge */}
-                <div className="col-span-4 sm:col-span-3 flex items-center gap-1.5">
-                  <div
-                    className={`px-2 py-1 font-mono font-black text-xs sm:text-sm border-2 border-black shadow-neo-sm ${theme.bg} ${theme.text}`}
-                  >
-                    ₹ {denom}
-                  </div>
-                  <span className="font-mono font-bold text-neutral-400 text-xs hidden sm:inline select-none">
-                    ×
-                  </span>
-                </div>
-
-                {/* Count Input Box + Steppers */}
-                <div className="col-span-4 sm:col-span-5 flex items-center justify-center gap-1">
-                  <button
-                    onClick={() => handleStep(denom, -1)}
-                    disabled={countNum <= 0}
-                    className="w-6 h-7 sm:w-7 sm:h-8 flex items-center justify-center bg-white hover:bg-neutral-100 disabled:opacity-30 disabled:hover:bg-white border-2 border-black font-bold text-black shadow-neo-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
-                    title="Subtract 1 note"
-                    aria-label={`Subtract 1 ₹${denom} note`}
-                  >
-                    <Minus className="w-3 h-3" />
-                  </button>
-
-                  <input
-                    type="text"
-                    inputMode="numeric"
-                    placeholder="0"
-                    value={rawCount}
-                    onChange={(e) => handleInputChange(denom, e.target.value)}
-                    aria-label={`Count for ₹${denom} notes`}
-                    className={`w-14 sm:w-20 text-center font-mono font-extrabold text-sm sm:text-base border-2 border-black py-1 px-1 focus:outline-none focus:ring-2 focus:ring-black ${countNum > 0 ? 'bg-yellow-100 text-black' : 'bg-white text-neutral-800'
-                      }`}
-                  />
-
-                  <button
-                    onClick={() => handleStep(denom, 1)}
-                    className="w-6 h-7 sm:w-7 sm:h-8 flex items-center justify-center bg-white hover:bg-neutral-100 border-2 border-black font-bold text-black shadow-neo-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
-                    title="Add 1 note"
-                    aria-label={`Add 1 ₹${denom} note`}
-                  >
-                    <Plus className="w-3 h-3" />
-                  </button>
-                </div>
-
-                {/* Amount Output */}
-                <div className="col-span-4 sm:col-span-4 text-right">
-                  <span className="font-mono font-black text-sm sm:text-base text-black">
-                    ₹ {formatINR(rowTotal)}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
+          {MAIN_DENOMINATIONS.map((denom) => renderRow(denom))}
         </div>
+
+        {/* Optional Denominations Section */}
+        {isExpanded && (
+          <div className="mt-4 pt-3 border-t-2 border-dashed border-neutral-300">
+            <div className="flex items-center justify-between mb-2 px-1">
+              <span className="text-[11px] font-black uppercase font-mono tracking-wider text-neutral-500 flex items-center gap-1.5">
+                <span>Optional / Other Denominations</span>
+              </span>
+              <span className="text-[10px] font-mono bg-neutral-100 text-neutral-600 px-1.5 py-0.5 border border-neutral-300">
+                ₹2000, ₹50, ₹20, ₹10, ₹5, ₹2, ₹1
+              </span>
+            </div>
+
+            <div className="space-y-2">
+              {OPTIONAL_DENOMINATIONS.map((denom) => renderRow(denom))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Summary Footer */}

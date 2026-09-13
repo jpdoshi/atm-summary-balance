@@ -106,10 +106,13 @@ export function generateATMSummaryPDF(record: ATMRecord, download = true): jsPDF
   doc.line(rightX, notesY, rightX + colWidth, notesY);
   notesY += 4;
 
-  const denominationsList = [2000, 500, 200, 100, 50, 20, 10, 5];
-  // check if 2 or 1 have counts
-  if (record.denominations[2]) denominationsList.push(2);
-  if (record.denominations[1]) denominationsList.push(1);
+  const denominationsList: number[] = [500, 200, 100];
+  // Include any other denominations if they have counts
+  [2000, 50, 20, 10, 5, 2, 1].forEach((d) => {
+    if (record.denominations[d] && !denominationsList.includes(d)) {
+      denominationsList.push(d);
+    }
+  });
 
   denominationsList.forEach((denom) => {
     const count = record.denominations[denom] || 0;

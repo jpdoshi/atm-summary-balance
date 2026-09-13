@@ -1,7 +1,9 @@
 export type DenominationValue = 2000 | 500 | 200 | 100 | 50 | 20 | 10 | 5 | 2 | 1;
 
-export const STANDARD_DENOMINATIONS: DenominationValue[] = [2000, 500, 200, 100, 50, 20, 10, 5];
-export const EXTRA_DENOMINATIONS: DenominationValue[] = [2, 1];
+export const MAIN_DENOMINATIONS: DenominationValue[] = [500, 200, 100];
+export const OPTIONAL_DENOMINATIONS: DenominationValue[] = [2000, 50, 20, 10, 5, 2, 1];
+export const STANDARD_DENOMINATIONS: DenominationValue[] = MAIN_DENOMINATIONS;
+export const EXTRA_DENOMINATIONS: DenominationValue[] = OPTIONAL_DENOMINATIONS;
 
 export interface LedgerFormState {
   openingBalance: string;
