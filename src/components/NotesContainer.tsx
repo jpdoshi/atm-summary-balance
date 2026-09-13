@@ -62,9 +62,8 @@ export const NotesContainer: React.FC<NotesContainerProps> = ({
     return (
       <div
         key={denom}
-        className={`grid grid-cols-12 gap-2 items-center p-2 border-2 border-black transition-colors ${
-          countNum > 0 ? 'bg-neutral-50 shadow-neo-sm' : 'bg-white hover:bg-neutral-50'
-        }`}
+        className={`grid grid-cols-12 gap-2 items-center p-2 border-2 border-black transition-colors ${countNum > 0 ? 'bg-neutral-50 shadow-neo-sm' : 'bg-white hover:bg-neutral-50'
+          }`}
       >
         {/* Note Badge */}
         <div className="col-span-4 sm:col-span-3 flex items-center gap-1.5">
@@ -97,9 +96,8 @@ export const NotesContainer: React.FC<NotesContainerProps> = ({
             value={rawCount}
             onChange={(e) => handleInputChange(denom, e.target.value)}
             aria-label={`Count for ₹${denom} notes`}
-            className={`w-14 sm:w-20 text-center font-mono font-extrabold text-sm sm:text-base border-2 border-black py-1 px-1 focus:outline-none focus:ring-2 focus:ring-black ${
-              countNum > 0 ? 'bg-yellow-100 text-black' : 'bg-white text-neutral-800'
-            }`}
+            className={`w-14 sm:w-20 text-center font-mono font-extrabold text-sm sm:text-base border-2 border-black py-1 px-1 focus:outline-none focus:ring-2 focus:ring-black ${countNum > 0 ? 'bg-yellow-100 text-black' : 'bg-white text-neutral-800'
+              }`}
           />
 
           <button
@@ -144,14 +142,11 @@ export const NotesContainer: React.FC<NotesContainerProps> = ({
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowOptional(!showOptional)}
-              className={`flex items-center gap-1 text-xs font-bold px-2.5 py-1 border-2 border-black shadow-neo-sm active:translate-x-0.5 active:translate-y-0.5 transition-all ${
-                isExpanded ? 'bg-[#FFE500] text-black' : 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200'
-              }`}
+              className={`flex items-center gap-1 text-xs font-bold px-2.5 py-1 border-2 border-black shadow-neo-sm active:translate-x-0.5 active:translate-y-0.5 transition-all ${isExpanded ? 'bg-[#FFE500] text-black' : 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200'
+                }`}
               title="Toggle optional denominations (₹2000, ₹50, ₹20, ₹10, ₹5, ₹2, ₹1)"
             >
-              <SlidersHorizontal className="w-3.5 h-3.5" />
-              <span>{isExpanded ? 'Hide Optional' : '+ Optional Notes'}</span>
-              {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              <span>{isExpanded ? 'Hide Optional' : 'Show Optional'}</span>
             </button>
 
             {totalNotesCount > 0 && (
@@ -207,9 +202,6 @@ export const NotesContainer: React.FC<NotesContainerProps> = ({
             <div className="flex items-center gap-1.5">
               <span className="text-[11px] font-mono font-bold bg-white px-2 py-0.5 border-2 border-black shadow-neo-sm text-black">
                 {totalNotesCount} {totalNotesCount === 1 ? 'Note' : 'Notes'}
-              </span>
-              <span className="text-[10px] font-mono font-bold bg-black text-[#A6FAFF] px-1.5 py-0.5 uppercase">
-                Disabled Total
               </span>
             </div>
           </div>

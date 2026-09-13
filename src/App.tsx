@@ -346,17 +346,6 @@ export function App() {
           onShare={handleShare}
           isSaved={hasSavedDataForCurrentDate}
         />
-
-        {/* Quick Help & Shortcuts Footer */}
-        <div className="bg-neutral-100 border-2 border-black p-4 shadow-neo-sm flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono font-bold text-neutral-600">
-          <div className="flex items-center gap-2">
-            <span className="px-1.5 py-0.5 bg-black text-white text-[10px] uppercase">TIP</span>
-            <span>All subtotals and totals calculate dynamically in real time.</span>
-          </div>
-          <div>
-            Data is persisted in your browser's LocalStorage. Backup anytime via the Backup button.
-          </div>
-        </div>
       </main>
 
       {/* Hidden during screen, displayed when window.print() is invoked */}

@@ -50,7 +50,6 @@ export const OpeningBalanceContainer: React.FC<OpeningBalanceContainerProps> = (
                 <span className="w-5 h-5 rounded-full bg-black text-white text-xs flex items-center justify-center font-mono">1</span>
                 Opening Balance
               </label>
-              <span className="text-[11px] font-mono font-bold text-neutral-500 uppercase">Input Box</span>
             </div>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 font-mono font-bold text-lg text-black select-none">
@@ -77,7 +76,6 @@ export const OpeningBalanceContainer: React.FC<OpeningBalanceContainerProps> = (
                 </span>
                 Total Receipt (Prev Day 5PM - 12AM)
               </label>
-              <span className="text-[11px] font-mono font-bold text-[#166534] uppercase">+ Add Amount</span>
             </div>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 font-mono font-bold text-lg text-black select-none">
@@ -104,9 +102,6 @@ export const OpeningBalanceContainer: React.FC<OpeningBalanceContainerProps> = (
               <span className="text-xs font-bold uppercase tracking-wider text-black">
                 Total (Subtotal 1)
               </span>
-              <span className="text-[10px] bg-neutral-300 px-1 font-mono font-semibold border border-neutral-400">
-                Disabled Input
-              </span>
             </div>
             <div className="font-mono font-black text-base sm:text-lg text-black">
               ₹ {formatINR(calculations.subtotal1)}
@@ -122,7 +117,6 @@ export const OpeningBalanceContainer: React.FC<OpeningBalanceContainerProps> = (
                 </span>
                 Payment (Prev Day 5PM - 12AM)
               </label>
-              <span className="text-[11px] font-mono font-bold text-[#991B1B] uppercase">- Deduct Amount</span>
             </div>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 font-mono font-bold text-lg text-black select-none">
@@ -149,9 +143,6 @@ export const OpeningBalanceContainer: React.FC<OpeningBalanceContainerProps> = (
               <span className="text-xs font-bold uppercase tracking-wider text-black">
                 Total (Subtotal 2)
               </span>
-              <span className="text-[10px] bg-neutral-300 px-1 font-mono font-semibold border border-neutral-400">
-                Disabled Input
-              </span>
             </div>
             <div className="font-mono font-black text-base sm:text-lg text-black">
               ₹ {formatINR(calculations.subtotal2)}
@@ -167,7 +158,6 @@ export const OpeningBalanceContainer: React.FC<OpeningBalanceContainerProps> = (
                 </span>
                 Today's Receipt
               </label>
-              <span className="text-[11px] font-mono font-bold text-[#166534] uppercase">+ Add Amount</span>
             </div>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 font-mono font-bold text-lg text-black select-none">
@@ -194,9 +184,6 @@ export const OpeningBalanceContainer: React.FC<OpeningBalanceContainerProps> = (
               <span className="text-xs font-bold uppercase tracking-wider text-black">
                 Total (Subtotal 3)
               </span>
-              <span className="text-[10px] bg-neutral-300 px-1 font-mono font-semibold border border-neutral-400">
-                Disabled Input
-              </span>
             </div>
             <div className="font-mono font-black text-base sm:text-lg text-black">
               ₹ {formatINR(calculations.subtotal3)}
@@ -212,7 +199,6 @@ export const OpeningBalanceContainer: React.FC<OpeningBalanceContainerProps> = (
                 </span>
                 Today's Payment
               </label>
-              <span className="text-[11px] font-mono font-bold text-[#991B1B] uppercase">- Deduct Amount</span>
             </div>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 font-mono font-bold text-lg text-black select-none">
@@ -239,9 +225,6 @@ export const OpeningBalanceContainer: React.FC<OpeningBalanceContainerProps> = (
             <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-black flex items-center gap-1.5">
               <Equal className="w-4 h-4" />
               Final Ledger Balance
-            </span>
-            <span className="text-[10px] font-mono font-bold bg-black text-[#FFE500] px-1.5 py-0.5 uppercase">
-              Disabled Total
             </span>
           </div>
           <div className="text-2xl sm:text-3xl font-black font-mono text-black text-right tracking-tight">
