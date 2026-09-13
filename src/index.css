@@ -1,1 +1,61 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Custom Neo-brutalist utilities */
+.shadow-neo-sm {
+  box-shadow: 2px 2px 0px 0px #000000;
+}
+
+.shadow-neo {
+  box-shadow: 3.5px 3.5px 0px 0px #000000;
+}
+
+.shadow-neo-lg {
+  box-shadow: 6px 6px 0px 0px #000000;
+}
+
+.shadow-neo-xl {
+  box-shadow: 8px 8px 0px 0px #000000;
+}
+
+.shadow-neo-hover {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.shadow-neo-hover:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5.5px 5.5px 0px 0px #000000;
+}
+
+.shadow-neo-hover:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px 0px #000000;
+}
+
+/* Print Optimization */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .print-break-inside-avoid {
+    break-inside: avoid;
+  }
+}
+
+@media screen {
+  .print-only {
+    display: none !important;
+  }
+}
