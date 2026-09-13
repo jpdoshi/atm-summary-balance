@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MAIN_DENOMINATIONS, OPTIONAL_DENOMINATIONS } from '../types/atm';
 import type { DenominationCounts, DenominationValue } from '../types/atm';
 import { formatINR } from '../utils/numberToWords';
-import { Banknote, Trash2, SlidersHorizontal, Plus, Minus, ChevronDown, ChevronUp } from 'lucide-react';
+import { Banknote, Trash2, Plus, Minus } from 'lucide-react';
 
 interface NotesContainerProps {
   denominations: DenominationCounts;
