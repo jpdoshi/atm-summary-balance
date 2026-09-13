@@ -1,20 +1,19 @@
 import React from 'react';
 import type { LedgerFormState, LedgerCalculated } from '../types/atm';
 import { formatINR } from '../utils/numberToWords';
-import { Plus, Minus, Equal, Landmark, Sparkles } from 'lucide-react';
+import { Plus, Minus, Equal, Landmark } from 'lucide-react';
 
 interface OpeningBalanceContainerProps {
   ledger: LedgerFormState;
   calculations: LedgerCalculated;
   onChange: (field: keyof LedgerFormState, value: string) => void;
-  onFillExample: () => void;
+  onFillExample?: () => void;
 }
 
 export const OpeningBalanceContainer: React.FC<OpeningBalanceContainerProps> = ({
   ledger,
   calculations,
   onChange,
-  onFillExample,
 }) => {
   const handleInputChange = (field: keyof LedgerFormState, e: React.ChangeEvent<HTMLInputElement>) => {
     // allow only numbers or empty string
@@ -40,15 +39,6 @@ export const OpeningBalanceContainer: React.FC<OpeningBalanceContainerProps> = (
               </p>
             </div>
           </div>
-
-          <button
-            onClick={onFillExample}
-            className="flex items-center gap-1 text-xs font-bold bg-[#A6FAFF] hover:bg-[#7ff4fc] text-black px-2.5 py-1 border-2 border-black shadow-neo-sm active:translate-x-0.5 active:translate-y-0.5 transition-all"
-            title="Load the 1000/- sample from handwritten note"
-          >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Sample Note</span>
-          </button>
         </div>
 
         {/* Step-by-Step Ledger List */}
@@ -85,7 +75,7 @@ export const OpeningBalanceContainer: React.FC<OpeningBalanceContainerProps> = (
                 <span className="w-5 h-5 bg-[#22C55E] text-white text-xs flex items-center justify-center font-mono font-bold border border-black">
                   <Plus className="w-3.5 h-3.5" />
                 </span>
-                Total Receipt
+                Total Receipt (Prev Day 5PM - 12AM)
               </label>
               <span className="text-[11px] font-mono font-bold text-[#166534] uppercase">+ Add Amount</span>
             </div>
@@ -130,7 +120,7 @@ export const OpeningBalanceContainer: React.FC<OpeningBalanceContainerProps> = (
                 <span className="w-5 h-5 bg-[#EF4444] text-white text-xs flex items-center justify-center font-mono font-bold border border-black">
                   <Minus className="w-3.5 h-3.5" />
                 </span>
-                Payment
+                Payment (Prev Day 5PM - 12AM)
               </label>
               <span className="text-[11px] font-mono font-bold text-[#991B1B] uppercase">- Deduct Amount</span>
             </div>
